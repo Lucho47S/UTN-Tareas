@@ -11,15 +11,15 @@ def mostrar_productos_ventas(productos :list, ventas :list) -> None:
 
 # Función para ordenar productos por ventas anuales de mayor a menor
 def ordenar_por_ventas(productos :list, ventas :list) -> None:
-    totales = [sum(v) for v in ventas]
+    totales = [0] * len(ventas)
+    for i in range(len(ventas)):
+        for valor in ventas[i]:
+            totales[i] += valor
     for i in range(len(totales) - 1):
         for j in range(i + 1, len(totales)):
             if totales[i] < totales[j]:
-                # Intercambiar totales
                 totales[i], totales[j] = totales[j], totales[i]
-                # Intercambiar productos
                 productos[i], productos[j] = productos[j], productos[i]
-                # Intercambiar filas de ventas
                 ventas[i], ventas[j] = ventas[j], ventas[i]
     print("\nProductos ordenados por ventas anuales descendente.")
 
