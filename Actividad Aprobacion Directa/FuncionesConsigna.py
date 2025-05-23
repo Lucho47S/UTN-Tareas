@@ -11,20 +11,20 @@ def mostrar_productos_ventas(productos :list, ventas :list) -> None:
 
 # Función para ordenar productos por ventas anuales de mayor a menor
 def ordenar_por_ventas(productos :list, ventas :list) -> None:
-    totales = [sum(v) for v in ventas]
+    totales = [0] * len(ventas)
+    for i in range(len(ventas)):
+        for valor in ventas[i]:
+            totales[i] += valor
     for i in range(len(totales) - 1):
         for j in range(i + 1, len(totales)):
             if totales[i] < totales[j]:
-                # Intercambiar totales
                 totales[i], totales[j] = totales[j], totales[i]
-                # Intercambiar productos
                 productos[i], productos[j] = productos[j], productos[i]
-                # Intercambiar filas de ventas
                 ventas[i], ventas[j] = ventas[j], ventas[i]
     print("\nProductos ordenados por ventas anuales descendente.")
 
 # Función para buscar producto por nombre
-def buscar_producto(productos, ventas, nombre) -> None:
+def buscar_producto(productos :list, ventas :list, nombre :str) -> None:
     if nombre in productos:
         indice = productos.index(nombre)
         print(f"\nVentas del producto {nombre}: T1={ventas[indice][0]}, T2={ventas[indice][1]}, T3={ventas[indice][2]}")
@@ -59,7 +59,7 @@ def menu(productos :list, ventas :list) -> None:
         elif opcion == "2":
             ordenar_por_ventas(productos, ventas)
         elif opcion == "3":
-            nombre = input("Ingrese el nombre del producto a buscar (A, B, C): ").upper()
+            nombre = str(input("Ingrese el nombre del producto a buscar (A, B, C): ").upper())
             buscar_producto(productos, ventas, nombre)
         elif opcion == "4":
                 valor = int(input("Ingrese el monto de venta a buscar: "))
